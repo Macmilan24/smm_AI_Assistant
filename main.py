@@ -2,6 +2,7 @@ import schedule
 import time
 import logging
 import asyncio
+import random
 
 from config import (
     NEWS_API_KEY,
@@ -37,6 +38,7 @@ def run_assistant_workflow():
         return
 
     articles = fetch_news_articles(NEWS_API_KEY)
+    random.shuffle(articles)
     selected_articles = []
     for article in articles:
         text = get_text_from_article(article)
@@ -125,6 +127,8 @@ def run_assistant_workflow():
 
 def start_scheduler():
     logger.info(f"Scheduling job daily at {SCHEDULE_TIME}.")
+    # schedule.every(1).minutes.do(run_assistant_workflow)
+    # schedule.every(1).hour.do(run_assistant_workflow)
     schedule.every().day.at(SCHEDULE_TIME).do(run_assistant_workflow)
     if RUN_IMMEDIATELY_ON_START:
         logger.info("Running job once immediately on start...")

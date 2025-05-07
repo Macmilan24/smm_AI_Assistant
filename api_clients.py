@@ -103,7 +103,6 @@ def query_groq_api(api_key, model_id, messages, temperature=0.7, max_tokens=1024
                     f"Successfully received response from Groq model {model_id}."
                 )
 
-                # Check and log token usage if available
                 usage_data = data.get("usage")
                 if usage_data:
                     prompt_tokens = usage_data.get("prompt_tokens", "N/A")
